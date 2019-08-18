@@ -11,7 +11,7 @@ module.exports = {
         conn.run('PRAGMA foreign_keys = ON', done);
       }
     },
-    userNullAsDefault: true,
+    useNullAsDefault: true,
     migrations: {
       directory: './data/migrations'
     },

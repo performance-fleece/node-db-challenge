@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
       .integer('resource_id')
       .unsigned()
       .notNullable()
-      .referecnes('id')
+      .references('id')
       .inTable('resources');
     tbl
       .integer('project_id')
