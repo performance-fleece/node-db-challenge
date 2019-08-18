@@ -6,6 +6,17 @@ module.exports = {
     connection: {
       filename: './data/project-database.db3'
     },
-    userNullAsDefault: true
+    pool: {
+      afterCreate: (conn, done) => {
+        conn.run('PRAGMA foreign_keys = ON', done);
+      }
+    },
+    userNullAsDefault: true,
+    migrations: {
+      directory: './data/migrations'
+    },
+    seeds: {
+      directory: './data/seeds'
+    }
   }
 };
