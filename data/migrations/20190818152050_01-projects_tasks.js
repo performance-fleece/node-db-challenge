@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
     .createTable('projects', tbl => {
       tbl.increments();
       tbl
-        .string('project_name', 128)
+        .string('name', 128)
         .notNullable()
         .unique();
       tbl.string('description', 255);
@@ -18,7 +18,9 @@ exports.up = function(knex, Promise) {
         .unsigned()
         .notNullable()
         .references('id')
-        .inTable('projects');
+        .inTable('projects')
+        .onUpdate('CASCADE')
+        .onDelete('CASCADE');
     });
 };
 

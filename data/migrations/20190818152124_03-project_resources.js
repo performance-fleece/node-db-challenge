@@ -5,13 +5,17 @@ exports.up = function(knex, Promise) {
       .unsigned()
       .notNullable()
       .references('id')
-      .inTable('resources');
+      .inTable('resources')
+      .onUpdate('CASCADE')
+      .onDelete('CASCADE');
     tbl
       .integer('project_id')
       .unsigned()
       .notNullable()
       .references('id')
-      .inTable('resources');
+      .inTable('resources')
+      .onUpdate('CASCADE')
+      .onDelete('CASCADE');
     tbl.primary(['resource_id', 'project_id']);
   });
 };

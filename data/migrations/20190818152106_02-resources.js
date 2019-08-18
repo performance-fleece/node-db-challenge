@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
     tbl.increments();
 
     tbl
-      .string('resource_name')
+      .string('name')
       .notNullable()
       .unique();
     tbl.string('notes');
