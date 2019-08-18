@@ -1,0 +1,27 @@
+{
+  "name": "db-challenge",
+  "version": "1.0.0",
+  "description": "node db sprint challenge",
+  "main": "index.js",
+  "dependencies": {
+    "knex": "^0.19.2",
+    "sqlite3": "^4.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  },
+  "scripts": {
+    "server": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/performance-fleece/node-db-challenge.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/performance-fleece/node-db-challenge/issues"
+  },
+  "homepage": "https://github.com/performance-fleece/node-db-challenge#readme"
+}
