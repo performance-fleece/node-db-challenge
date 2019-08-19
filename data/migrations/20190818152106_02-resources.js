@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
       .string('name')
       .notNullable()
       .unique();
-    tbl.string('notes');
+    tbl.string('description');
     tbl.boolean;
   });
 };
