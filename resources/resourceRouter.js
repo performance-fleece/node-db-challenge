@@ -21,16 +21,8 @@ router.get('/', async (req, res) => {
 
 //Get Resource by ID
 
-router.get('/:id', async (req, res) => {
-  try {
-    const resource = await Resource.getById(req.params.id);
-    res.status(200).json(resource);
-  } catch (err) {
-    console.log(err);
-    res
-      .status(500)
-      .json({ error: 'There was an error finding that resource ID' });
-  }
+router.get('/:id', validateResourceId, async (req, res) => {
+  res.status(200).json(req.resource);
 });
 
 // ADD RESOURCE
@@ -44,5 +36,20 @@ router.post('/', async (req, res) => {
     res.status(500).json({ error: 'there was an error adding resource' });
   }
 });
+
+async function validateResourceId(req, res, next) {
+  try {
+    const { id } = req.params;
+    const resource = await Resource.getById(id);
+    if (resource) {
+      req.resource = resource;
+      next();
+    } else {
+      res.status(404).json({ message: 'Resource not found ' });
+    }
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to process request' });
+  }
+}
 
 module.exports = router;
