@@ -6,14 +6,14 @@ exports.seed = function(knex) {
       return knex('projects').insert([
         {
           id: 1,
-          name: 'First test project no desc',
-          description: '',
+          project_name: 'First test project no desc',
+          project_description: '',
           completed: false
         },
         {
           id: 2,
-          name: 'Second test project',
-          description: 'This has a description',
+          project_name: 'Second test project',
+          project_description: 'This has a description',
           completed: false
         }
       ]);

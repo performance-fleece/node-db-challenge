@@ -60,8 +60,8 @@ async function validateProjectId(req, res, next) {
 }
 
 function convertBoolean(project) {
-  const { id, name, description } = project;
-  const partial = { id, name, description };
+  const { id, project_name, project_description } = project;
+  const partial = { id, project_name, project_description };
   const true_complete = { ...partial, completed: true };
   const false_complete = { ...partial, completed: false };
   return project.completed == 1 ? true_complete : false_complete;

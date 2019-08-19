@@ -56,8 +56,8 @@ async function validateTaskId(req, res, next) {
 }
 
 function convertBoolean(task) {
-  const { id, description, notes } = task;
-  const partial = { id, description, notes };
+  const { id, description, notes, project_name, project_description } = task;
+  const partial = { id, project_name, project_description, description, notes };
   const true_complete = { ...partial, completed: true };
   const false_complete = { ...partial, completed: false };
   return task.completed == 1 ? true_complete : false_complete;

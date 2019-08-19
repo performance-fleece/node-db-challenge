@@ -3,18 +3,25 @@ exports.up = function(knex, Promise) {
     .createTable('projects', tbl => {
       tbl.increments();
       tbl
-        .string('name', 128)
+        .string('project_name', 128)
         .notNullable()
         .unique();
-      tbl.string('description', 255);
-      tbl.boolean('completed');
+      tbl.string('project_description', 255);
+      tbl
+        .boolean('completed')
+        .notNullable()
+        .defaultTo(0);
     })
     .createTable('tasks', tbl => {
       tbl.increments();
       tbl.string('description').notNullable();
       tbl.string('notes');
       tbl
-        .integer('task_id')
+        .boolean('completed')
+        .notNullable()
+        .defaultTo(0);
+      tbl
+        .integer('project_id')
         .unsigned()
         .notNullable()
         .references('id')

@@ -7,12 +7,30 @@ module.exports = {
 };
 
 function get() {
-  return db('tasks');
+  return db('tasks as t')
+    .join('projects as p', 'p.id', 't.project_id')
+    .select(
+      't.id',
+      'p.project_name',
+      'p.project_description',
+      't.description',
+      't.notes',
+      't.completed'
+    );
 }
 
 function getById(id) {
-  return db('tasks')
-    .where({ id })
+  return db('tasks as t')
+    .join('projects as p', 'p.id', 't.project_id')
+    .select(
+      't.id',
+      'p.project_name',
+      'p.project_description',
+      't.description',
+      't.notes',
+      't.completed'
+    )
+    .where('t.id', id)
     .first();
 }
 
