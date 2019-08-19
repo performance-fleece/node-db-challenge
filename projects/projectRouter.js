@@ -6,7 +6,7 @@ const Project = require('./projectDb.js');
 
 // USE /api/projects
 
-//GET RESOURCES
+//GET Projects
 router.get('/', async (req, res) => {
   try {
     const projects = await Project.get();
@@ -19,30 +19,37 @@ router.get('/', async (req, res) => {
   }
 });
 
-//Get Resource by ID
+//Get Projects by ID
 
-router.get('/:id', async (req, res) => {
-  try {
-    const project = await Project.getById(req.params.id);
-    res.status(200).json(project);
-  } catch (err) {
-    console.log(err);
-    res
-      .status(500)
-      .json({ error: 'There was an error finding that Project ID' });
-  }
+router.get('/:id', validateProjectId, async (req, res) => {
+  res.status(200).json(req.project);
 });
 
-// ADD RESOURCE
+// ADD Projects
 
 router.post('/', async (req, res) => {
   try {
     const project = await Project.insert(req.body);
-    res.status(201).json(resource);
+    res.status(201).json(project);
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: 'there was an error adding project' });
   }
 });
+
+async function validateProjectId(req, res, next) {
+  try {
+    const { id } = req.params;
+    const project = await Project.getById(id);
+    if (project) {
+      req.project = project;
+      next();
+    } else {
+      res.status(404).json({ message: 'Project not found ' });
+    }
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to process request' });
+  }
+}
 
 module.exports = router;
