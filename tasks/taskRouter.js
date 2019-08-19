@@ -60,11 +60,7 @@ function convertBoolean(task) {
   const partial = { id, description, notes };
   const true_complete = { ...partial, completed: true };
   const false_complete = { ...partial, completed: false };
-  if (task.completed == 1) {
-    return true_complete;
-  } else {
-    return false_complete;
-  }
+  return task.completed == 1 ? true_complete : false_complete;
 }
 
 module.exports = router;

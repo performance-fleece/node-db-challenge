@@ -8,9 +8,15 @@ const Project = require('./projectDb.js');
 
 //GET Projects
 router.get('/', async (req, res) => {
+  const convertedArray = [];
   try {
     const projects = await Project.get();
-    res.status(200).json(projects);
+    projects.map(project => {
+      const converted = convertBoolean(project);
+      convertedArray.push(converted);
+    });
+
+    res.status(200).json(convertedArray);
   } catch (err) {
     console.log(err);
     res
@@ -22,7 +28,8 @@ router.get('/', async (req, res) => {
 //Get Projects by ID
 
 router.get('/:id', validateProjectId, async (req, res) => {
-  res.status(200).json(req.project);
+  const converted = convertBoolean(req.project);
+  res.status(200).json(converted);
 });
 
 // ADD Projects
@@ -50,6 +57,14 @@ async function validateProjectId(req, res, next) {
   } catch (err) {
     res.status(500).json({ message: 'Failed to process request' });
   }
+}
+
+function convertBoolean(project) {
+  const { id, name, description } = project;
+  const partial = { id, name, description };
+  const true_complete = { ...partial, completed: true };
+  const false_complete = { ...partial, completed: false };
+  return project.completed == 1 ? true_complete : false_complete;
 }
 
 module.exports = router;
